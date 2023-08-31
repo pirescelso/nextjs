@@ -1,4 +1,3 @@
-import { BetSetFixture } from "../__tests__/index.test";
 import { Bet } from "./bet";
 import { BetSet } from "./bet_set";
 import { Better } from "./better";
@@ -32,17 +31,17 @@ export class GameDayFixture {
       {
         name: "Player 1",
         bets: [
-          { bet: { homeGols: 1, awayGols: 0 } },
           { bet: { homeGols: 1, awayGols: 1 } },
-          { bet: { homeGols: 1, awayGols: 2 } },
           { bet: { homeGols: 1, awayGols: 1 } },
-          { bet: { homeGols: 1, awayGols: 0 } },
-          { bet: { homeGols: 0, awayGols: 0 } },
-          { bet: { homeGols: 2, awayGols: 1 } },
-          { bet: { homeGols: 2, awayGols: 1 } },
-          { bet: { homeGols: 2, awayGols: 1 } },
           { bet: { homeGols: 1, awayGols: 1 } },
-          { bet: { homeGols: 0, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
         ],
       },
       {
@@ -95,39 +94,12 @@ export class GameDayFixture {
     const games = gameData.map((g) => new Game(g));
     const results = resultData.map((r) => new Result(r));
 
-    const better1 = new Better({ name: "Player 1" });
-    const better2 = new Better({ name: "Player 2" });
-    const betsPlayer1 = [
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-    ];
-
-    const betsPlayer2 = [
-      new Bet({ homeGols: 1, awayGols: 0 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 2 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 0 }),
-      new Bet({ homeGols: 0, awayGols: 0 }),
-      new Bet({ homeGols: 2, awayGols: 1 }),
-      new Bet({ homeGols: 2, awayGols: 1 }),
-      new Bet({ homeGols: 2, awayGols: 1 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-      new Bet({ homeGols: 0, awayGols: 1 }),
-    ];
-
-    return [
-      new BetSet({ better: better1, games, bets: betsPlayer1, results }),
-      new BetSet({ better: better2, games, bets: betsPlayer2, results }),
-    ];
+    return betterData.map((b) => {
+      const better = new Better({ name: b.name });
+      const bets = b.bets.map(
+        (b) => new Bet({ homeGols: b.bet.homeGols, awayGols: b.bet.awayGols })
+      );
+      return new BetSet({ better, bets, games, results });
+    });
   }
 }
