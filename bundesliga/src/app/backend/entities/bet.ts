@@ -1,3 +1,3 @@
-import {Game} from "@/app/backend/entities/game";
+import {Score} from "@/app/backend/entities/score";
 
-export class Bet extends Game { }
+export class Bet extends Score { }
