@@ -1,10 +1,10 @@
 export type BetterProps = {
-    name: string;
-}
+  name: string;
+};
 
 export class Better {
-    name: string;
-    constructor(props: BetterProps) {
-        this.name = props.name;
-    }
+  name: string;
+  constructor(props: BetterProps) {
+    this.name = props.name;
+  }
 }
