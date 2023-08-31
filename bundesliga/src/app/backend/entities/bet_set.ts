@@ -1,20 +1,24 @@
 import { Bet } from "./bet";
+import { Better } from "./better";
 import { Game } from "./game";
 import { Result } from "./result";
 
 export type BetSetProps = {
+    better: Better
     games: Game[]
     bets: Bet[]
     results: Result[]
 }
 
 export class BetSet {
+    better: Better
     games: Game[]
     bets: Bet[]
     results: Result[]
     points: number
 
     constructor(props: BetSetProps) {
+        this.better = props.better;
         this.games = props.games;
         this.bets = props.bets;
         this.results = props.results;
