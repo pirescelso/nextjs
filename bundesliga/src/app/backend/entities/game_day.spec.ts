@@ -20,73 +20,114 @@ describe("GameDay", () => {
     expect(gameDay.season).toBe("2023/24");
     expect(gameDay.round).toBe(1);
     expect(gameDay.betSets.length).toBe(2);
-    expect(gameDay.betSets).toEqual(betSets);
+    expect(gameDay.betSets).toStrictEqual(betSets);
+    expect(gameDay.winner.better.name).toBe("Player 2");
+    expect(gameDay.winner.points).toBe(85);
   });
 });
 
 export class GameDayFixture {
   static betSets() {
-    const better1 = new Better({name: "Player 1"})
-    const better2 = new Better({name: "Player 2"})
-  
-    const games = [
-      new Game({ home: "Team 1", away: "Team 2" }),
-      new Game({ home: "Team 3", away: "Team 4" }),
-      new Game({ home: "Team 5", away: "Team 6" }),
-      new Game({ home: "Team 7", away: "Team 8" }),
-      new Game({ home: "Team 9", away: "Team 10" }),
-      new Game({ home: "Team 11", away: "Team 12" }),
-      new Game({ home: "Team 13", away: "Team 14" }),
-      new Game({ home: "Team 15", away: "Team 16" }),
-      new Game({ home: "Team 17", away: "Team 18" }),
-      new Game({ home: "Team 19", away: "Team 20" }),
-      new Game({ home: "Team 21", away: "Team 22" }),
+    const betterData = [
+      {
+        name: "Player 1",
+        bets: [
+          { bet: { homeGols: 1, awayGols: 0 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 2 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 0 } },
+          { bet: { homeGols: 0, awayGols: 0 } },
+          { bet: { homeGols: 2, awayGols: 1 } },
+          { bet: { homeGols: 2, awayGols: 1 } },
+          { bet: { homeGols: 2, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 0, awayGols: 1 } },
+        ],
+      },
+      {
+        name: "Player 2",
+        bets: [
+          { bet: { homeGols: 1, awayGols: 0 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 2 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 0 } },
+          { bet: { homeGols: 0, awayGols: 0 } },
+          { bet: { homeGols: 2, awayGols: 1 } },
+          { bet: { homeGols: 2, awayGols: 1 } },
+          { bet: { homeGols: 2, awayGols: 1 } },
+          { bet: { homeGols: 1, awayGols: 1 } },
+          { bet: { homeGols: 0, awayGols: 1 } },
+        ],
+      },
     ];
+
+    const gameData = [
+      { home: "Team 1", away: "Team 2" },
+      { home: "Team 3", away: "Team 4" },
+      { home: "Team 5", away: "Team 6" },
+      { home: "Team 7", away: "Team 8" },
+      { home: "Team 9", away: "Team 10" },
+      { home: "Team 11", away: "Team 12" },
+      { home: "Team 13", away: "Team 14" },
+      { home: "Team 15", away: "Team 16" },
+      { home: "Team 17", away: "Team 18" },
+      { home: "Team 18", away: "Team 20" },
+      { home: "Team 19", away: "Team 22" },
+      { home: "Team 21", away: "Team 24" },
+    ];
+
+    const resultData = [
+      { homeGols: 1, awayGols: 0 },
+      { homeGols: 1, awayGols: 1 },
+      { homeGols: 1, awayGols: 2 },
+      { homeGols: 1, awayGols: 1 },
+      { homeGols: 1, awayGols: 0 },
+      { homeGols: 0, awayGols: 0 },
+      { homeGols: 2, awayGols: 1 },
+      { homeGols: 2, awayGols: 1 },
+      { homeGols: 2, awayGols: 1 },
+      { homeGols: 1, awayGols: 1 },
+      { homeGols: 0, awayGols: 1 },
+    ];
+
+    const games = gameData.map((g) => new Game(g));
+    const results = resultData.map((r) => new Result(r));
+
+    const better1 = new Better({ name: "Player 1" });
+    const better2 = new Better({ name: "Player 2" });
     const betsPlayer1 = [
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-    ]
-  
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+    ];
+
     const betsPlayer2 = [
-      new Bet({homeGols: 1, awayGols: 0}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 2}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 0}),
-      new Bet({homeGols: 0, awayGols: 0}),
-      new Bet({homeGols: 2, awayGols: 1}),
-      new Bet({homeGols: 2, awayGols: 1}),
-      new Bet({homeGols: 2, awayGols: 1}),
-      new Bet({homeGols: 1, awayGols: 1}),
-      new Bet({homeGols: 0, awayGols: 1}),
-    ]
-  
-    const results = [
-      new Result({homeGols: 1, awayGols: 0}),
-      new Result({homeGols: 1, awayGols: 1}),
-      new Result({homeGols: 1, awayGols: 2}),
-      new Result({homeGols: 1, awayGols: 1}),
-      new Result({homeGols: 1, awayGols: 0}),
-      new Result({homeGols: 0, awayGols: 0}),
-      new Result({homeGols: 2, awayGols: 1}),
-      new Result({homeGols: 2, awayGols: 1}),
-      new Result({homeGols: 2, awayGols: 1}),
-      new Result({homeGols: 1, awayGols: 1}),
-      new Result({homeGols: 0, awayGols: 1}),
-    ]
+      new Bet({ homeGols: 1, awayGols: 0 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 2 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 0 }),
+      new Bet({ homeGols: 0, awayGols: 0 }),
+      new Bet({ homeGols: 2, awayGols: 1 }),
+      new Bet({ homeGols: 2, awayGols: 1 }),
+      new Bet({ homeGols: 2, awayGols: 1 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+      new Bet({ homeGols: 0, awayGols: 1 }),
+    ];
 
     return [
-      new BetSet({better: better1, games, bets: betsPlayer1, results}),
-      new BetSet({better: better2, games, bets: betsPlayer2, results}),
-    ]
+      new BetSet({ better: better1, games, bets: betsPlayer1, results }),
+      new BetSet({ better: better2, games, bets: betsPlayer2, results }),
+    ];
   }
 }
