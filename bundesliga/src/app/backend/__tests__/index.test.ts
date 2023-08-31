@@ -24,31 +24,46 @@ describe("Integration Tests", () => {
   });
 
   it("should create BetSet", () => {
-    const better = new Better({ name: "Celso" });
-
-    const games = [
-      new Game({ home: "Bayern", away: "VfB" }),
-      new Game({ home: "Bayern", away: "VfB" }),
-      new Game({ home: "Bayern", away: "VfB" }),
-      new Game({ home: "Bayern", away: "VfB" }),
-    ];
-
-    const bets = [
-      new Bet({ homeGols: 1, awayGols: 0 }),
-      new Bet({ homeGols: 1, awayGols: 2 }),
-      new Bet({ homeGols: 1, awayGols: 0 }),
-      new Bet({ homeGols: 1, awayGols: 1 }),
-    ];
-
-    const results = [
-      new Result({ homeGols: 1, awayGols: 0 }),
-      new Result({ homeGols: 1, awayGols: 2 }),
-      new Result({ homeGols: 1, awayGols: 0 }),
-      new Result({ homeGols: 1, awayGols: 1 }),
-    ];
+    const better = BetSetFixture.better("Celso");
+    const games = BetSetFixture.games();
+    const bets = BetSetFixture.bets();
+    const results = BetSetFixture.results()
 
     const betSet = new BetSet({ better, games, bets, results });
     expect(betSet.better.name).toBe("Celso");
     expect(betSet.points).toBe(30);
   });
 });
+
+export class BetSetFixture {
+  static better(name: string) {
+    return new Better({ name });
+  }
+
+  static games() {
+    return [
+      new Game({ home: "Team 1", away: "Team 2" }),
+      new Game({ home: "Team 3", away: "Team 4" }),
+      new Game({ home: "Team 5", away: "Team 6" }),
+      new Game({ home: "Team 7", away: "Team 8" }),
+    ];
+  }
+
+  static bets() {
+    return [
+      new Bet({ homeGols: 1, awayGols: 0 }),
+      new Bet({ homeGols: 1, awayGols: 2 }),
+      new Bet({ homeGols: 1, awayGols: 0 }),
+      new Bet({ homeGols: 1, awayGols: 1 }),
+    ];
+  }
+
+  static results () {
+    return [
+      new Result({ homeGols: 1, awayGols: 0 }),
+      new Result({ homeGols: 1, awayGols: 2 }),
+      new Result({ homeGols: 1, awayGols: 0 }),
+      new Result({ homeGols: 1, awayGols: 1 }),
+    ];
+  }
+}
