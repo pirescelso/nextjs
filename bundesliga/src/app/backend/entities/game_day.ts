@@ -1,34 +1,49 @@
-import { BetSet } from "./bet_set";
-import { Better } from "./better";
 
 export type GameDayProps = {
-  championship: string;
-  season: string;
+  id: string;
+  ligaId: string;
   round: number;
-  betSets: BetSet[];
+  games: GameProps[];
 };
 
-type Winner = {
-  better: Better;
-  points: number;
-};
+export type GameProps = {
+  gameNumber: number;
+  homeId: string;
+  awayId: string;
+}
 
 export class GameDay {
-  championship: string;
-  season: string;
+  id: string;
+  ligaId: string;
   round: number;
-  betSets: BetSet[];
-  winner: Winner;
+  games: Game[];
 
   constructor(props: GameDayProps) {
-    props.betSets.sort((a, b) => b.points - a.points);
-    this.championship = props.championship;
-    this.season = props.season;
+    this.id = props.id;
+    this.ligaId = props.ligaId;
     this.round = props.round;
-    this.betSets = props.betSets;
-    this.winner = {
-      better: props.betSets[0].better,
-      points: props.betSets[0].points,
-    };
+    this.games = GameDay.createGames(props.games);
+  }
+
+  static create(props: Omit<GameDayProps, "id">) {}
+
+  static restore(props: GameDayProps) {
+    return new GameDay(props)
+  }
+
+  private static createGames (games: GameProps[]) {
+    return games.map((g) => new Game(g))
+  }
+}
+
+export class Game {
+  gameNumber: number;
+  homeId: string;
+  awayId: string;
+
+  constructor(props: GameProps) {
+    this.gameNumber = props.gameNumber;
+    this.homeId = props.homeId;
+    this.awayId = props.awayId;
   }
 }

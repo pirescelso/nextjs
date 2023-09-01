@@ -11,4 +11,6 @@ export class Game {
     this.home = props.home;
     this.away = props.away;
   }
+
+  static create (props: Omit<GameProps, "id">) {}
 }
