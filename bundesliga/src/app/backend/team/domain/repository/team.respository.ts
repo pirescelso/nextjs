@@ -1,6 +1,6 @@
 import { Team } from "../entities/team";
 
 export interface ITeamRepository {
-  findById(id: string): Team;
-  findAll(): Team[];
+  findById(id: string): Promise<Team>;
+  findAll(): Promise<Team[]>;
 }

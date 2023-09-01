@@ -3,10 +3,10 @@ import { ILigaRepository } from "../../../domain/repository/liga.respository";
 import { ligaData } from "@/app/backend/tests/data";
 
 export class LigaInMemoryRepository implements ILigaRepository {
-  findById(id: string): Liga {
+  async findById(id: string): Promise<Liga> {
     return Liga.restore(ligaData[+id]);
   }
-  findAll(): Liga[] {
+  async findAll(): Promise<Liga[]> {
     throw new Error("Method not implemented.");
   }
 }

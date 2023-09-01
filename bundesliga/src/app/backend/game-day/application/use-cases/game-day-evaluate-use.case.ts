@@ -24,18 +24,22 @@ export class GameDayEvaluateUseCase {
     this.betterRepository = props.betterRepository;
   }
 
-  execute(input: Input): Output {
-    const gameDay = this.gameDayRepository.findById(input.gameDayId);
-    const bets = this.betRepository.search({ gameDayId: input.gameDayId });
-    const result = this.resultRepository.search({
+  async execute(input: Input): Promise<Output> {
+    const gameDay = await this.gameDayRepository.findById(input.gameDayId);
+    const bets = await this.betRepository.search({
+      gameDayId: input.gameDayId,
+    });
+    const result = await this.resultRepository.search({
       gameDayId: input.gameDayId,
     });
 
-    const betters = bets.map((b) => {
-      const better = this.betterRepository.findById(b.betterId);
-      const points = this.sum(b.scores, result.scores);
-      return { name: better.name, points };
-    });
+    const betters = await Promise.all(
+      bets.map(async (b) => {
+        const better = await this.betterRepository.findById(b.betterId);
+        const points = this.sum(b.scores, result.scores);
+        return { name: better.name, points };
+      })
+    );
 
     betters.sort((a, b) => b.points - a.points);
 

@@ -3,13 +3,13 @@ import { IResultRepository } from "../../../domain/repository/result.respository
 import { resultData } from "@/app/backend/tests/data";
 
 export class ResultInMemoryRepository implements IResultRepository {
-  findById(id: string): Result {
+  async findById(id: string): Promise<Result> {
     return Result.restore(resultData[+id]);
   }
-  findAll(): Result[] {
+  async findAll(): Promise<Result[]> {
     throw new Error("Method not implemented.");
   }
-  search(params: { gameDayId: string }): Result {
+  async search(params: { gameDayId: string }): Promise<Result> {
     const selectedRecords = resultData.filter(
       (b) => b.gameDayId === params.gameDayId
     );

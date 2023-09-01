@@ -1,7 +1,7 @@
 import { Bet } from "../entities/bet";
 
 export interface IBetRepository {
-  findById(id: string): Bet;
-  findAll(): Bet[];
-  search(params: { gameDayId: string }): Bet[];
+  findById(id: string): Promise<Bet>;
+  findAll(): Promise<Bet[]>;
+  search(params: { gameDayId: string }): Promise<Bet[]>;
 }

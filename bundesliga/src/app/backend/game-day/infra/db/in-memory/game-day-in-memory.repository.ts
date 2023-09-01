@@ -3,10 +3,10 @@ import { IGameDayRepository } from "../../../domain/repository/game-day.resposit
 import { gameDayData } from "@/app/backend/tests/data";
 
 export class GameDayInMemoryRepository implements IGameDayRepository {
-  findById(id: string): GameDay {
+  async findById(id: string): Promise<GameDay> {
     return GameDay.restore(gameDayData[+id]);
   }
-  findAll(): GameDay[] {
+  async findAll(): Promise<GameDay[]> {
     throw new Error("Method not implemented.");
   }
 }

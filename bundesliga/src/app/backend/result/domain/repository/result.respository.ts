@@ -1,7 +1,7 @@
 import { Result } from "../entities/result";
 
 export interface IResultRepository {
-  findById(id: string): Result;
-  findAll(): Result[];
-  search(params: { gameDayId: string }): Result;
+  findById(id: string): Promise<Result>;
+  findAll(): Promise<Result[]>;
+  search(params: { gameDayId: string }): Promise<Result>;
 }

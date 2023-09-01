@@ -3,10 +3,10 @@ import { IBetterRepository } from "../../../domain/repository/better.respository
 import { betterData } from "@/app/backend/tests/data";
 
 export class BetterInMemoryRepository implements IBetterRepository {
-  findById(id: string): Better {
+  async findById(id: string): Promise<Better> {
     return Better.restore(betterData[+id]);
   }
-  findAll(): Better[] {
+  async findAll(): Promise<Better[]> {
     throw new Error("Method not implemented.");
   }
 }

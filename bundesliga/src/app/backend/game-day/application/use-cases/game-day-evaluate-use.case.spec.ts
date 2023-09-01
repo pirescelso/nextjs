@@ -5,7 +5,7 @@ import { ResultInMemoryRepository } from "@/app/backend/result/infra/db/in-memor
 import { BetterInMemoryRepository } from "@/app/backend/better/infra/db/in-memory/better-in-memory.repository";
 
 describe("GameDayEvaluateUseCase Unit Test", () => {
-  it("should evaluate a GameDay", () => {
+  it("should evaluate a GameDay", async () => {
     const gameDayRepository = new GameDayInMemoryRepository();
     const betRepository = new BetInMemoryRepository();
     const resultRepository = new ResultInMemoryRepository();
@@ -17,7 +17,7 @@ describe("GameDayEvaluateUseCase Unit Test", () => {
       betterRepository,
     });
 
-    const output = usecase.execute({ gameDayId: "0" });
+    const output = await usecase.execute({ gameDayId: "0" });
     console.log(output);
   });
 });
