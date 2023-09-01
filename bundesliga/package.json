@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "ts-node": "ts-node",
+    "tsc:check": "npm run tsc -- --noEmit",
+    "tsc": "tsc"
   },
   "dependencies": {
     "@types/node": "20.5.7",
