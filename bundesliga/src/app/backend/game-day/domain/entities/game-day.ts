@@ -1,4 +1,3 @@
-
 export type GameDayProps = {
   id: string;
   ligaId: string;
@@ -10,7 +9,7 @@ export type GameProps = {
   gameNumber: number;
   homeId: string;
   awayId: string;
-}
+};
 
 export class GameDay {
   id: string;
@@ -28,11 +27,11 @@ export class GameDay {
   static create(props: Omit<GameDayProps, "id">) {}
 
   static restore(props: GameDayProps) {
-    return new GameDay(props)
+    return new GameDay(props);
   }
 
-  private static createGames (games: GameProps[]) {
-    return games.map((g) => new Game(g))
+  private static createGames(games: GameProps[]) {
+    return games.map((g) => new Game(g));
   }
 }
 

@@ -1,5 +1,5 @@
-import { GameDay } from "./game_day";
-import { gameDayData } from "@/app/backend/tests/data"
+import { GameDay } from "./game-day";
+import { gameDayData } from "@/app/backend/tests/data";
 
 describe("GameDay Unit Test", () => {
   it("should restore a GameDay", () => {
@@ -16,5 +16,3 @@ describe("GameDay Unit Test", () => {
     expect(gameDay.games[1].awayId).toBe("3");
   });
 });
-
-
