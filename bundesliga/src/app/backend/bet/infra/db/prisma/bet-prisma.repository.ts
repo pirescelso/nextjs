@@ -1,4 +1,4 @@
-import { prisma } from "@/app/backend/prisma/prisma";
+import { prisma } from "@/app/backend/@prisma/prisma";
 import { Bet } from "../../../domain/entities/bet";
 import { IBetRepository } from "../../../domain/repository/bet.respository";
 import { checkNotFoundError } from "@/app/backend/@seedwork/infra/db/prisma/utils";

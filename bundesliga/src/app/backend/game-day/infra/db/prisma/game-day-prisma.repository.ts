@@ -1,5 +1,5 @@
 import { checkNotFoundError } from "@/app/backend/@seedwork/infra/db/prisma/utils";
-import { prisma } from "@/app/backend/prisma/prisma";
+import { prisma } from "@/app/backend/@prisma/prisma";
 import { GameDay } from "../../../domain/entities/game-day";
 import { IGameDayRepository } from "../../../domain/repository/game-day.respository";
 

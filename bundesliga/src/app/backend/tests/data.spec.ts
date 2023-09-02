@@ -1,4 +1,4 @@
-import { prisma } from "../prisma/prisma";
+import { prisma } from "../@prisma/prisma";
 
 describe("Name of the group", () => {
   test.skip("create test data ", async () => {

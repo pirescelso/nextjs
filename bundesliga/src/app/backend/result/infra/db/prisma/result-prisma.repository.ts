@@ -1,5 +1,5 @@
 import { checkNotFoundError } from "@/app/backend/@seedwork/infra/db/prisma/utils";
-import { prisma } from "@/app/backend/prisma/prisma";
+import { prisma } from "@/app/backend/@prisma/prisma";
 import { Result } from "../../../domain/entities/result";
 import { IResultRepository } from "../../../domain/repository/result.respository";
 
