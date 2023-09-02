@@ -1,5 +1,5 @@
 import { Bet } from "./bet";
-import { betData } from "@/app/backend/tests/data";
+import { betData } from "@/app/backend/tests/data.spec";
 
 describe("Bet Unit Test", () => {
   it("should restore a Bet", () => {

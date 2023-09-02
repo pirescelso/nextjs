@@ -32,38 +32,38 @@ model TeamModel {
 }
 
 model GameDayModel {
-  id         String      @id @map("_id")
+  id         String   @id @map("_id")
   ligaId     String
   round      Int
-  games      GameModel[]
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
+  games      Game[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model BetModel {
-  id         String       @id @map("_id")
+  id         String   @id @map("_id")
   gameDayId  String
   betterId   String
-  scores     ScoreModel[]
-  created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
+  scores     Score[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model ResultModel {
-  id         String       @id @map("_id")
+  id         String   @id @map("_id")
   gameDayId  String
-  scores     ScoreModel[]
-  created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
+  scores     Score[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
-type GameModel {
+type Game {
   gameNumber Int
   homeId     String
   awayId     String
 }
 
-type ScoreModel {
+type Score {
   gameNumber Int
   homeGols   Int
   awayGols   Int

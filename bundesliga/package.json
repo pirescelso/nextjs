@@ -10,7 +10,9 @@
     "test": "jest --watch",
     "ts-node": "ts-node",
     "tsc:check": "npm run tsc -- --noEmit",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "db:push": "npx prisma db push",
+    "studio": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^5.2.0",

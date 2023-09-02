@@ -1,4 +1,4 @@
-import { betterData } from "@/app/backend/tests/data";
+import { betterData } from "@/app/backend/tests/data.spec";
 import { Better } from "./better";
 
 describe("Better Unit Test", () => {

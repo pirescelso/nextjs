@@ -1,4 +1,4 @@
-import { teamData } from "@/app/backend/tests/data";
+import { teamData } from "@/app/backend/tests/data.spec";
 import { Team } from "./team";
 
 describe("Team Unit Test", () => {

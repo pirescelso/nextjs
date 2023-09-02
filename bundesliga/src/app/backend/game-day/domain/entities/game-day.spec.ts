@@ -1,5 +1,5 @@
 import { GameDay } from "./game-day";
-import { gameDayData } from "@/app/backend/tests/data";
+import { gameDayData } from "@/app/backend/tests/data.spec";
 
 describe("GameDay Unit Test", () => {
   it("should restore a GameDay", () => {
