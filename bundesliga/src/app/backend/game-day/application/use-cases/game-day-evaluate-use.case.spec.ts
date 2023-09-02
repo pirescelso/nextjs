@@ -1,15 +1,15 @@
-import { BetInMemoryRepository } from "@/app/backend/bet/infra/db/in-memory/bet-in-memory.repository";
-import { GameDayInMemoryRepository } from "@/app/backend/game-day/infra/db/in-memory/game-day-in-memory.repository";
+import { BetPrismaRepository } from "@/app/backend/bet/infra/db/prisma/bet-prisma.repository";
+import { GameDayPrismaRepository } from "@/app/backend/game-day/infra/db/prisma/game-day-prisma.repository";
 import { GameDayEvaluateUseCase } from "./game-day-evaluate-use.case";
-import { ResultInMemoryRepository } from "@/app/backend/result/infra/db/in-memory/result-in-memory.repository";
-import { BetterInMemoryRepository } from "@/app/backend/better/infra/db/in-memory/better-in-memory.repository";
+import { ResultPrismaRepository } from "@/app/backend/result/infra/db/prisma/result-prisma.repository";
+import { BetterPrismaRepository } from "@/app/backend/better/infra/db/prisma/better-prisma.repository";
 
 describe("GameDayEvaluateUseCase Unit Test", () => {
   it("should evaluate a GameDay", async () => {
-    const gameDayRepository = new GameDayInMemoryRepository();
-    const betRepository = new BetInMemoryRepository();
-    const resultRepository = new ResultInMemoryRepository();
-    const betterRepository = new BetterInMemoryRepository();
+    const gameDayRepository = new GameDayPrismaRepository();
+    const betRepository = new BetPrismaRepository();
+    const resultRepository = new ResultPrismaRepository();
+    const betterRepository = new BetterPrismaRepository();
     const usecase = new GameDayEvaluateUseCase({
       gameDayRepository,
       betRepository,

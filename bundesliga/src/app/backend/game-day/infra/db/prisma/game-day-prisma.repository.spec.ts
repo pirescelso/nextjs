@@ -1,8 +1,8 @@
-import { GameDayInMemoryRepository } from "./game-day-in-memory.repository";
+import { GameDayPrismaRepository } from "./game-day-prisma.repository";
 
-describe("GameDayInMemoryRepository Unit Test", () => {
+describe("GameDayPrismaRepository Unit Test", () => {
   it("should find a GameDay", async () => {
-    const repository = new GameDayInMemoryRepository();
+    const repository = new GameDayPrismaRepository();
     const gameDay = await repository.findById("0");
     expect(gameDay.id).toBe("0");
     expect(gameDay.ligaId).toBe("0");

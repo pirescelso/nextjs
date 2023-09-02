@@ -1,8 +1,8 @@
-import { ResultInMemoryRepository } from "./result-in-memory.repository";
+import { ResultPrismaRepository } from "./result-prisma.repository";
 
-describe("ResultInMemoryRepository Unit Test", () => {
+describe("ResultPrismaRepository Unit Test", () => {
   it("should find a Result", async () => {
-    const repository = new ResultInMemoryRepository();
+    const repository = new ResultPrismaRepository();
     const result = await repository.findById("0");
     expect(result.id).toBe("0");
     expect(result.gameDayId).toBe("0");
@@ -10,7 +10,7 @@ describe("ResultInMemoryRepository Unit Test", () => {
   });
 
   it("should return Result", async () => {
-    const repository = new ResultInMemoryRepository();
+    const repository = new ResultPrismaRepository();
     const result = await repository.search({ gameDayId: "0" });
     expect(result.id).toBe("0");
     expect(result.gameDayId).toBe("0");

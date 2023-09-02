@@ -8,10 +8,6 @@ export class BetPrismaRepository implements IBetRepository {
     let _id = `${id}`;
     const model = await this._get(_id);
     return Bet.restore({
-      // id: model.id,
-      // betterId: model.betterId,
-      // gameDayId: model.gameDayId,
-      // scores: model.scores,
       ...model,
     });
   }
