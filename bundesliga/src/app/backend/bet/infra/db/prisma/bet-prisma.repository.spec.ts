@@ -1,8 +1,8 @@
-import { BetInMemoryRepository } from "./bet-in-memory.repository";
+import { BetPrismaRepository } from "./bet-prisma.repository";
 
-describe("BetInMemoryRepository Unit Test", () => {
+describe("BetPrismaRepository Unit Test", () => {
   it("should find a Bet", async () => {
-    const repository = new BetInMemoryRepository();
+    const repository = new BetPrismaRepository();
     const bet = await repository.findById("0");
     expect(bet.id).toBe("0");
     expect(bet.betterId).toBe("0");
@@ -11,7 +11,7 @@ describe("BetInMemoryRepository Unit Test", () => {
   });
 
   it("should search Bet", async () => {
-    const repository = new BetInMemoryRepository();
+    const repository = new BetPrismaRepository();
     const bets = await repository.search({ gameDayId: "0" });
     expect(bets.length).toBe(2);
   });

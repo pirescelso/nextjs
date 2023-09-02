@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model LigaModel {
+  id         String   @id @map("_id")
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model BetterModel {
+  id         String   @id @map("_id")
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model TeamModel {
+  id         String   @id @map("_id")
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model GameDayModel {
+  id         String      @id @map("_id")
+  ligaId     String
+  round      Int
+  games      GameModel[]
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+}
+
+model BetModel {
+  id         String       @id @map("_id")
+  gameDayId  String
+  betterId   String
+  scores     ScoreModel[]
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+}
+
+model ResultModel {
+  id         String       @id @map("_id")
+  gameDayId  String
+  scores     ScoreModel[]
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+}
+
+type GameModel {
+  gameNumber Int
+  homeId     String
+  awayId     String
+}
+
+type ScoreModel {
+  gameNumber Int
+  homeGols   Int
+  awayGols   Int
+}

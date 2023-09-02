@@ -1,3 +1,23 @@
+import { prisma } from "../prisma/prisma";
+
+describe("Name of the group", () => {
+  test.skip("create test data ", async () => {
+    await prisma.ligaModel.deleteMany();
+    await prisma.betterModel.deleteMany();
+    await prisma.teamModel.deleteMany();
+    await prisma.gameDayModel.deleteMany();
+    await prisma.betModel.deleteMany();
+    await prisma.resultModel.deleteMany();
+
+    await prisma.ligaModel.createMany({ data: ligaData });
+    await prisma.betterModel.createMany({ data: betterData });
+    await prisma.teamModel.createMany({ data: teamData });
+    await prisma.gameDayModel.createMany({ data: gameDayData });
+    await prisma.betModel.createMany({ data: betData });
+    await prisma.resultModel.createMany({ data: resultData });
+  });
+});
+
 export const ligaData = [{ id: "0", name: "Bundesliga 2023/24" }];
 
 export const betterData = [
