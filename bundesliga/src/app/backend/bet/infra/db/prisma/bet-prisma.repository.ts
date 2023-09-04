@@ -27,7 +27,7 @@ export class BetPrismaRepository implements IBetRepository {
   private async _get(id: string) {
     try {
       return await prisma.betModel.findUniqueOrThrow({
-        where: { id },
+        where: { id }, include: { betScores: {}}
       });
     } catch (e) {
       throw checkNotFoundError(`Entity not found using ID ${id}`, e);
