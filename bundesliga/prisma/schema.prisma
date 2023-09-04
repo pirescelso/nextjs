@@ -11,60 +11,97 @@ datasource db {
 }
 
 model LigaModel {
-  id         String   @id @map("_id")
+  id         String         @id @map("_id")
   name       String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  gameDays   GameDayModel[]
+  createdAat DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
 }
 
 model BetterModel {
-  id         String   @id @map("_id")
-  name       String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String     @id @map("_id")
+  name      String
+  bets      BetModel[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model TeamModel {
-  id         String   @id @map("_id")
-  name       String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String      @id @map("_id")
+  name      String
+  homes     GameModel[] @relation("Homes")
+  aways     GameModel[] @relation("Aways")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model GameModel {
+  id         String             @id @map("_id")
+  gameDay    GameDayModel       @relation(fields: [gameDaylId], references: [id])
+  gameDaylId String
+  gameNumber Int
+  home       TeamModel          @relation("Homes", fields: [homeId], references: [id])
+  homeId     String
+  away       TeamModel          @relation("Aways", fields: [awayId], references: [id])
+  awayId     String
+  bets       BetScoreModel[]
+  results    ResultScoreModel[]
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
 }
 
 model GameDayModel {
-  id         String   @id @map("_id")
-  ligaId     String
-  round      Int
-  games      Game[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String        @id @map("_id")
+  liga      LigaModel     @relation(fields: [ligaId], references: [id])
+  ligaId    String
+  round     Int
+  bets      BetModel[]
+  results   ResultModel[]
+  games     GameModel[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
 
 model BetModel {
-  id         String   @id @map("_id")
-  gameDayId  String
-  betterId   String
-  scores     Score[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id        String          @id @map("_id")
+  gameDay   GameDayModel    @relation(fields: [gameDayId], references: [id])
+  gameDayId String
+  better    BetterModel     @relation(fields: [betterId], references: [id])
+  betterId  String
+  betScores BetScoreModel[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model BetScoreModel {
+  id         String    @id @map("_id")
+  game       GameModel @relation(fields: [gameId], references: [id])
+  gameId     String
+  bet        BetModel  @relation(fields: [betId], references: [id])
+  betId      String
+  homeGols   Int
+  awayGols   Int
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 }
 
 model ResultModel {
-  id         String   @id @map("_id")
-  gameDayId  String
-  scores     Score[]
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id           String             @id @map("_id")
+  gameDay      GameDayModel       @relation(fields: [gameDayId], references: [id])
+  gameDayId    String
+  resultScores ResultScoreModel[]
+  created_at   DateTime           @default(now())
+  updated_at   DateTime           @updatedAt
 }
 
-type Game {
-  gameNumber Int
-  homeId     String
-  awayId     String
-}
-
-type Score {
-  gameNumber Int
+model ResultScoreModel {
+  id         String      @id @map("_id")
+  game       GameModel   @relation(fields: [gameId], references: [id])
+  gameId     String
+  result     ResultModel @relation(fields: [resultId], references: [id])
+  resultId   String
   homeGols   Int
   awayGols   Int
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
 }

@@ -20,6 +20,7 @@ export class GameDayPrismaRepository implements IGameDayRepository {
     try {
       return await prisma.gameDayModel.findUniqueOrThrow({
         where: { id },
+        include: { games: { }},
       });
     } catch (e) {
       throw checkNotFoundError(`Entity not found using ID ${id}`, e);
