@@ -81,6 +81,7 @@ describe("BetPrismaRepository Unit Test", () => {
           betId: "1",
           homeGols: 1,
           awayGols: 2,
+          column: "2",
         },
       }),
     ]);
@@ -111,6 +112,7 @@ describe("BetPrismaRepository Unit Test", () => {
           betId: "1",
           homeGols: 1,
           awayGols: 2,
+          column: "2",
         },
       }),
     ]);

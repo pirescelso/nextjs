@@ -47,7 +47,6 @@ describe("GameDay Unit Test", () => {
     expect(gameDay.round).toBe(gameDayProps.round);
     expect(gameDay.games.length).toBe(2);
     expect(gameDay.games[0].id).toBeDefined();
-    console.log(gameDay.games[0].id);
     expect(gameDay.games[0].id).not.toBe("1");
     expect(gameDay.games[0].gameNumber).toBe(1);
     expect(gameDay.games[0].homeId).toBe("0");

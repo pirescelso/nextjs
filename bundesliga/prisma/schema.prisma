@@ -7,6 +7,7 @@ generator client {
 
 generator erd {
   provider = "prisma-erd-generator"
+  disabled = true
 }
 
 datasource db {
@@ -73,6 +74,7 @@ model BetModel {
   better    BetterModel     @relation(fields: [betterId], references: [id])
   betterId  String
   betScores BetScoreModel[]
+  points    Int?
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 }
@@ -85,6 +87,8 @@ model BetScoreModel {
   betId      String
   homeGols   Int
   awayGols   Int
+  column     String
+  points     Int?
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
 }

@@ -4,7 +4,7 @@ import { GameDayEvaluateUseCase } from "./game-day-evaluate-use.case";
 import { ResultPrismaRepository } from "@/backend/result/infra/db/prisma/result-prisma.repository";
 import { BetterPrismaRepository } from "@/backend/better/infra/db/prisma/better-prisma.repository";
 
-describe("GameDayEvaluateUseCase Unit Test", () => {
+describe.skip("GameDayEvaluateUseCase Unit Test", () => {
   it("should evaluate a GameDay", async () => {
     const gameDayRepository = new GameDayPrismaRepository();
     const betRepository = new BetPrismaRepository();

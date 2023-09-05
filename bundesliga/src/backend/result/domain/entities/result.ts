@@ -1,21 +1,28 @@
 import { v4 as uuidv4 } from "uuid";
 import {
   ResultScore,
-  ResultScoreProps,
+  ResultScoreParams,
   ResultScorePropsJson,
 } from "./result-score";
 
-export type ResultProps = {
+export type ResultRestoreParams = {
   id: string;
   gameDayId: string;
-  resultScores: ResultScoreProps[];
+  resultScores: ResultScoreParams[];
 };
 
-export type ResultPropsJson = Omit<ResultProps, "resultScores"> & {
+export type ResultCreateParams = Omit<
+  ResultRestoreParams,
+  "id" | "resultScores"
+> & {
+  resultScores: Omit<ResultScoreParams, "id" | "column">[];
+};
+
+export type ResultPropsJson = Omit<ResultRestoreParams, "resultScores"> & {
   resultScores: ResultScorePropsJson[];
 };
 
-type PrivateProps = Omit<ResultProps, "resultScores"> & {
+type ResultProps = Omit<ResultRestoreParams, "resultScores"> & {
   resultScores: ResultScore[];
 };
 
@@ -24,20 +31,20 @@ export class Result {
   gameDayId: string;
   resultScores: ResultScore[];
 
-  constructor(props: PrivateProps) {
+  constructor(props: ResultProps) {
     this.id = props.id;
     this.gameDayId = props.gameDayId;
     this.resultScores = props.resultScores;
   }
 
-  static create(props: Omit<ResultProps, "id">) {
-    const resultScores = props.resultScores.map((r) => ResultScore.create(r));
-    return new Result({ ...props, resultScores, id: uuidv4() });
+  static create(params: ResultCreateParams) {
+    const resultScores = params.resultScores.map((r) => ResultScore.create(r));
+    return new Result({ ...params, resultScores, id: uuidv4() });
   }
 
-  static restore(props: ResultProps) {
-    const resultScores = props.resultScores.map((r) => ResultScore.restore(r));
-    return new Result({ ...props, resultScores });
+  static restore(params: ResultRestoreParams) {
+    const resultScores = params.resultScores.map((r) => ResultScore.restore(r));
+    return new Result({ ...params, resultScores });
   }
 
   toJSON(): ResultPropsJson {
