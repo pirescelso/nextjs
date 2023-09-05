@@ -1,29 +1,51 @@
-import { Score, ScoreProps } from "@/backend/score/domain/value-objects/score";
+import { v4 as uuidv4 } from "uuid";
+import {
+  ResultScore,
+  ResultScoreProps,
+  ResultScorePropsJson,
+} from "./result-score";
 
 export type ResultProps = {
   id: string;
   gameDayId: string;
-  scores: ScoreProps[];
+  resultScores: ResultScoreProps[];
+};
+
+export type ResultPropsJson = Omit<ResultProps, "resultScores"> & {
+  resultScores: ResultScorePropsJson[];
+};
+
+type PrivateProps = Omit<ResultProps, "resultScores"> & {
+  resultScores: ResultScore[];
 };
 
 export class Result {
   id: string;
   gameDayId: string;
-  scores: Score[];
+  resultScores: ResultScore[];
 
-  constructor(props: ResultProps) {
+  constructor(props: PrivateProps) {
     this.id = props.id;
     this.gameDayId = props.gameDayId;
-    this.scores = Result.createScores(props.scores);
+    this.resultScores = props.resultScores;
   }
 
-  static create(props: Omit<ResultProps, "id">) {}
+  static create(props: Omit<ResultProps, "id">) {
+    const resultScores = props.resultScores.map((r) => ResultScore.create(r));
+    return new Result({ ...props, resultScores, id: uuidv4() });
+  }
 
   static restore(props: ResultProps) {
-    return new Result(props);
+    const resultScores = props.resultScores.map((r) => ResultScore.restore(r));
+    return new Result({ ...props, resultScores });
   }
 
-  private static createScores(scores: ScoreProps[]) {
-    return scores.map((s) => new Score(s));
+  toJSON(): ResultPropsJson {
+    return {
+      ...this,
+      resultScores: this.resultScores.map((r) => {
+        r.toJSON();
+      }),
+    };
   }
 }

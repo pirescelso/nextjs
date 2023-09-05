@@ -1,8 +1,7 @@
 import { Bet } from "@/backend/bet/domain/entities/bet";
-import { Better } from "@/backend/better/domain/entities/better";
 import { Result } from "@/backend/result/domain/entities/result";
 import { Score } from "@/backend/score/domain/value-objects/score";
-import { v4 as uuidv4, validate as uuidValidate } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 type Props = {
   id: string;

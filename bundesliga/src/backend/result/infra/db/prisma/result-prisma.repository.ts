@@ -20,6 +20,7 @@ export class ResultPrismaRepository implements IResultRepository {
       where: {
         gameDayId: params.gameDayId,
       },
+      include: { resultScores: {} },
     });
 
     return Result.restore(models[0]);
@@ -29,6 +30,7 @@ export class ResultPrismaRepository implements IResultRepository {
     try {
       return await prisma.resultModel.findUniqueOrThrow({
         where: { id },
+        include: { resultScores: {} },
       });
     } catch (e) {
       throw checkNotFoundError(`Entity not found using ID ${id}`, e);

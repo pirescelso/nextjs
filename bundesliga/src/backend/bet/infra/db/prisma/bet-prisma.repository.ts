@@ -19,6 +19,7 @@ export class BetPrismaRepository implements IBetRepository {
       where: {
         gameDayId: params.gameDayId,
       },
+      include: { betScores: {} },
     });
 
     return models.map((b) => Bet.restore(b));

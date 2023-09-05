@@ -32,6 +32,11 @@ describe("GameDayPrismaRepository Unit Test", () => {
           },
         ],
       }),
+    ]);
+  }, 10000);
+
+  it("should find a GameDay", async () => {
+    await prisma.$transaction([
       prisma.gameModel.createMany({
         data: [
           {
@@ -58,9 +63,7 @@ describe("GameDayPrismaRepository Unit Test", () => {
         },
       }),
     ]);
-  });
 
-  it("should find a GameDay", async () => {
     const repository = new GameDayPrismaRepository();
     const gameDay = await repository.findById("1");
     expect(gameDay.id).toBe("1");

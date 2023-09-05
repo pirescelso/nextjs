@@ -1,32 +1,50 @@
-import { Score, ScoreProps } from "@/backend/score/domain/value-objects/score";
+import { BetScore, BetScoreProps, BetScorePropsJson } from "./bet-score";
+import { v4 as uuidv4 } from "uuid";
 
 export type BetProps = {
   id: string;
   gameDayId: string;
   betterId: string;
-  scores: ScoreProps[];
+  betScores: BetScoreProps[];
+};
+
+export type BetPropsJson = Omit<BetProps, "betScores"> & {
+  betScores: BetScorePropsJson[];
+};
+
+type PrivateProps = Omit<BetProps, "betScores"> & {
+  betScores: BetScore[];
 };
 
 export class Bet {
   id: string;
   gameDayId: string;
   betterId: string;
-  scores: Score[];
+  betScores: BetScore[];
 
-  constructor(props: BetProps) {
+  constructor(props: PrivateProps) {
     this.id = props.id;
     this.gameDayId = props.gameDayId;
     this.betterId = props.betterId;
-    this.scores = Bet.createScores(props.scores);
+    this.betScores = props.betScores;
   }
 
-  static create(props: Omit<BetProps, "id">) {}
+  static create(props: Omit<BetProps, "id">) {
+    const betScores = props.betScores.map((b) => BetScore.create(b));
+    return new Bet({ ...props, betScores, id: uuidv4() });
+  }
 
   static restore(props: BetProps) {
-    return new Bet(props);
+    const betScores = props.betScores.map((b) => BetScore.restore(b));
+    return new Bet({ ...props, betScores });
   }
 
-  private static createScores(scores: ScoreProps[]) {
-    return scores.map((s) => new Score(s));
+  toJSON(): BetPropsJson {
+    return {
+      ...this,
+      betScores: this.betScores.map((b) => {
+        b.toJSON();
+      }),
+    };
   }
 }
