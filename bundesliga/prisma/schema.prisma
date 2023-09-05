@@ -104,10 +104,10 @@ model ResultModel {
 
 model ResultScoreModel {
   id         String      @id @map("_id")
-  game       GameModel   @relation(fields: [gameId], references: [id])
-  gameId     String
   result     ResultModel @relation(fields: [resultId], references: [id])
   resultId   String
+  game       GameModel   @relation(fields: [gameId], references: [id])
+  gameId     String
   homeGols   Int
   awayGols   Int
   created_at DateTime    @default(now())

@@ -6,7 +6,7 @@ describe("LigaPrismaRepository Unit Test", () => {
   beforeEach(async () => {
     await initializePrisma();
     await prisma.ligaModel.create({
-      data: { id: "0", name: "Bundesliga 2023/24" },
+      data: { id: "1", name: "Bundesliga 2023/24" },
     });
   });
   it("should find a Liga", async () => {
