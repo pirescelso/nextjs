@@ -1,19 +1,28 @@
-import { Game, GameProps, GamePropsJson } from "./game";
 import { v4 as uuidv4 } from "uuid";
+import {
+  Game,
+  GameCreateParams,
+  GamePropsJson,
+  GameRestoreParams,
+} from "./game";
 
 export type GameDayProps = {
   id: string;
   ligaId: string;
   round: number;
-  games: GameProps[];
+  games: Game[];
+};
+
+export type GameDayCreateParams = Omit<GameDayProps, "id" | "games"> & {
+  games: GameCreateParams[];
+};
+
+export type GameDayRestoreParams = Omit<GameDayProps, "games"> & {
+  games: GameRestoreParams[];
 };
 
 export type GameDayPropsJson = Omit<GameDayProps, "games"> & {
   games: GamePropsJson[];
-};
-
-type PrivateProps = Omit<GameDayProps, "games"> & {
-  games: Game[];
 };
 
 export class GameDay {
@@ -22,29 +31,27 @@ export class GameDay {
   round: number;
   games: Game[];
 
-  constructor(props: PrivateProps) {
+  constructor(props: GameDayProps) {
     this.id = props.id;
     this.ligaId = props.ligaId;
     this.round = props.round;
     this.games = props.games;
   }
 
-  static create(props: Omit<GameDayProps, "id">) {
-    const games = props.games.map((g) => Game.create(g));
-    return new GameDay({ ...props, games, id: uuidv4() });
+  static create(params: GameDayCreateParams) {
+    const games = params.games.map((g) => Game.create(g));
+    return new GameDay({ ...params, games, id: uuidv4() });
   }
 
-  static restore(props: GameDayProps) {
-    const games = props.games.map((g) => Game.restore(g));
-    return new GameDay({ ...props, games });
+  static restore(params: GameDayRestoreParams) {
+    const games = params.games.map((g) => Game.restore(g));
+    return new GameDay({ ...params, games });
   }
 
   toJSON(): GameDayPropsJson {
     return {
       ...this,
-      games: this.games.map((g) => {
-        g.toJSON();
-      }),
+      games: this.games.map((g) => g.toJSON()),
     };
   }
 }

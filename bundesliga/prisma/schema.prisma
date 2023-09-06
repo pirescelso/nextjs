@@ -41,30 +41,31 @@ model TeamModel {
 }
 
 model GameModel {
-  id         String             @id @map("_id")
-  gameDay    GameDayModel       @relation(fields: [gameDaylId], references: [id])
-  gameDaylId String
+  id         String          @id @map("_id")
+  gameDay    GameDayModel    @relation(fields: [gameDayId], references: [id])
+  gameDayId  String
   gameNumber Int
-  home       TeamModel          @relation("Homes", fields: [homeId], references: [id])
+  home       TeamModel       @relation("Homes", fields: [homeId], references: [id])
   homeId     String
-  away       TeamModel          @relation("Aways", fields: [awayId], references: [id])
+  away       TeamModel       @relation("Aways", fields: [awayId], references: [id])
   awayId     String
-  bets       BetScoreModel[]
-  results    ResultScoreModel[]
-  createdAt  DateTime           @default(now())
-  updatedAt  DateTime           @updatedAt
+  homeGols   Int?
+  awayGols   Int?
+  column     String?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  betsScores BetScoreModel[]
 }
 
 model GameDayModel {
-  id        String        @id @map("_id")
-  liga      LigaModel     @relation(fields: [ligaId], references: [id])
+  id        String      @id @map("_id")
+  liga      LigaModel   @relation(fields: [ligaId], references: [id])
   ligaId    String
   round     Int
   bets      BetModel[]
-  results   ResultModel[]
   games     GameModel[]
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model BetModel {
@@ -91,25 +92,4 @@ model BetScoreModel {
   points     Int?
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-}
-
-model ResultModel {
-  id           String             @id @map("_id")
-  gameDay      GameDayModel       @relation(fields: [gameDayId], references: [id])
-  gameDayId    String
-  resultScores ResultScoreModel[]
-  created_at   DateTime           @default(now())
-  updated_at   DateTime           @updatedAt
-}
-
-model ResultScoreModel {
-  id         String      @id @map("_id")
-  result     ResultModel @relation(fields: [resultId], references: [id])
-  resultId   String
-  game       GameModel   @relation(fields: [gameId], references: [id])
-  gameId     String
-  homeGols   Int
-  awayGols   Int
-  created_at DateTime    @default(now())
-  updated_at DateTime    @updatedAt
 }

@@ -1,11 +1,8 @@
-import exp from "constants";
 import { prisma } from "./prisma";
 
-describe.skip("Validate Prisma Model", () => {
+describe("Validate Prisma Model", () => {
   it("Collections", async () => {
     // Clean
-    await prisma.resultScoreModel.deleteMany();
-    await prisma.resultModel.deleteMany();
     await prisma.betScoreModel.deleteMany();
     await prisma.betModel.deleteMany();
     await prisma.gameModel.deleteMany();
@@ -99,14 +96,14 @@ describe.skip("Validate Prisma Model", () => {
       data: [
         {
           id: "1",
-          gameDaylId: "1",
+          gameDayId: "1",
           gameNumber: 1,
           homeId: "1",
           awayId: "2",
         },
         {
           id: "2",
-          gameDaylId: "1",
+          gameDayId: "1",
           gameNumber: 2,
           homeId: "3",
           awayId: "4",
@@ -118,14 +115,14 @@ describe.skip("Validate Prisma Model", () => {
       include: { gameDay: { include: { liga: {} } }, home: {}, away: {} },
     });
     expect(games[0].id).toBe("1");
-    expect(games[0].gameDaylId).toBe("1");
+    expect(games[0].gameDayId).toBe("1");
     expect(games[0].gameDay.round).toBe(1);
     expect(games[0].gameDay.liga.name).toBe("Bundesliga 2023/24");
     expect(games[0].gameNumber).toBe(1);
     expect(games[0].home.name).toBe("Team 1");
     expect(games[0].away.name).toBe("Team 2");
     expect(games[1].id).toBe("2");
-    expect(games[1].gameDaylId).toBe("1");
+    expect(games[1].gameDayId).toBe("1");
     expect(games[1].gameDay.round).toBe(1);
     expect(games[1].gameDay.liga.name).toBe("Bundesliga 2023/24");
     expect(games[1].gameNumber).toBe(2);
@@ -174,6 +171,7 @@ describe.skip("Validate Prisma Model", () => {
           gameId: "1",
           homeGols: 11,
           awayGols: 11,
+          column: "X",
         },
         {
           id: "2",
@@ -181,6 +179,7 @@ describe.skip("Validate Prisma Model", () => {
           gameId: "2",
           homeGols: 12,
           awayGols: 12,
+          column: "X",
         },
         {
           id: "3",
@@ -188,6 +187,7 @@ describe.skip("Validate Prisma Model", () => {
           gameId: "1",
           homeGols: 21,
           awayGols: 21,
+          column: "X",
         },
         {
           id: "4",
@@ -195,6 +195,7 @@ describe.skip("Validate Prisma Model", () => {
           gameId: "2",
           homeGols: 22,
           awayGols: 22,
+          column: "X",
         },
       ],
     });
@@ -227,96 +228,5 @@ describe.skip("Validate Prisma Model", () => {
     expect(betsScores[1].awayGols).toBe(12);
 
     // #endregion Bet
-
-    // #region Result
-
-    await prisma.resultModel.createMany({
-      data: [
-        {
-          id: "1",
-          gameDayId: "1",
-        },
-        {
-          id: "2",
-          gameDayId: "1",
-        },
-      ],
-    });
-
-    const results = await prisma.resultModel.findMany({
-      include: { gameDay: {} },
-    });
-
-    expect(results[0].id).toBe("1");
-    expect(results[0].gameDayId).toBe("1");
-    expect(results[0].gameDay.round).toBe(1);
-    expect(results[1].id).toBe("2");
-    expect(results[1].gameDayId).toBe("1");
-    expect(results[1].gameDay.round).toBe(1);
-
-    // #endregion Result
-
-    // #region ResultScore
-
-    await prisma.resultScoreModel.createMany({
-      data: [
-        {
-          id: "1",
-          resultId: "1",
-          gameId: "1",
-          homeGols: 11,
-          awayGols: 11,
-        },
-        {
-          id: "2",
-          resultId: "1",
-          gameId: "2",
-          homeGols: 12,
-          awayGols: 12,
-        },
-        {
-          id: "3",
-          resultId: "2",
-          gameId: "1",
-          homeGols: 21,
-          awayGols: 21,
-        },
-        {
-          id: "4",
-          resultId: "2",
-          gameId: "2",
-          homeGols: 22,
-          awayGols: 22,
-        },
-      ],
-    });
-
-    const resultsScores = await prisma.betScoreModel.findMany({
-      include: {
-        bet: { include: { better: {} } },
-        game: { include: { home: {}, away: {} } },
-      },
-    });
-
-    expect(resultsScores[0].id).toBe("1");
-    expect(resultsScores[0].betId).toBe("1");
-    expect(resultsScores[0].bet.better.name).toBe("Better 1");
-    expect(resultsScores[0].gameId).toBe("1");
-    expect(resultsScores[0].game.gameNumber).toBe(1);
-    expect(resultsScores[0].game.home.name).toBe("Team 1");
-    expect(resultsScores[0].game.away.name).toBe("Team 2");
-    expect(resultsScores[0].homeGols).toBe(11);
-    expect(resultsScores[0].awayGols).toBe(11);
-
-    expect(resultsScores[1].id).toBe("2");
-    expect(resultsScores[1].betId).toBe("1");
-    expect(resultsScores[1].bet.better.name).toBe("Better 1");
-    expect(resultsScores[1].gameId).toBe("2");
-    expect(resultsScores[1].game.gameNumber).toBe(2);
-    expect(resultsScores[1].game.home.name).toBe("Team 3");
-    expect(resultsScores[1].game.away.name).toBe("Team 4");
-    expect(resultsScores[1].homeGols).toBe(12);
-    expect(resultsScores[1].awayGols).toBe(12);
-    // #endregion ResultScore
   }, 50000);
 });

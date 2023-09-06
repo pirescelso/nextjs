@@ -42,14 +42,14 @@ describe("BetPrismaRepository Unit Test", () => {
         data: [
           {
             id: "1",
-            gameDaylId: "1",
+            gameDayId: "1",
             gameNumber: 1,
             homeId: "1",
             awayId: "2",
           },
           {
             id: "2",
-            gameDaylId: "1",
+            gameDayId: "1",
             gameNumber: 2,
             homeId: "3",
             awayId: "4",
